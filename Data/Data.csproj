@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Concrete\" />
+    <None Remove="Concrete\EntityFramework\" />
+    <None Remove="Concrete\EntityFramework\Context\" />
+    <None Remove="Concrete\EntityFramework\Mappings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Concrete\" />
+    <Folder Include="Concrete\EntityFramework\" />
+    <Folder Include="Concrete\EntityFramework\Context\" />
+    <Folder Include="Concrete\EntityFramework\Mappings\" />
+  </ItemGroup>
+</Project>

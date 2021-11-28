@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Entities\" />
+    <None Remove="Extensions\" />
+    <None Remove="Utilities\" />
+    <None Remove="Entities\Abstract\" />
+    <None Remove="Entities\ComplexTypes\" />
+    <None Remove="Entities\Concrete\" />
+    <None Remove="Utilities\Exceptions\" />
+    <None Remove="Utilities\Generators\" />
+    <None Remove="Utilities\Hashing\" />
+    <None Remove="Utilities\Results\" />
+    <None Remove="Utilities\Security\" />
+    <None Remove="Utilities\Validation\" />
+    <None Remove="Utilities\Results\Abstract\" />
+    <None Remove="Utilities\Results\ComplexTypes\" />
+    <None Remove="Utilities\Results\Concrete\" />
+    <None Remove="Utilities\Security\Encryption\" />
+    <None Remove="FluentValidation" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
+    <None Remove="Microsoft.IdentityModel.Tokens" />
+    <None Remove="Microsoft.Extensions.Configuration" />
+    <None Remove="Microsoft.Extensions.Configuration.Binder" />
+    <None Remove="Utilities\Security\Jwt\" />
+    <None Remove="Utilities\Validation\FluentValidation\" />
+    <None Remove="Global\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="Entities\Abstract\" />
+    <Folder Include="Entities\ComplexTypes\" />
+    <Folder Include="Entities\Concrete\" />
+    <Folder Include="Utilities\Exceptions\" />
+    <Folder Include="Utilities\Generators\" />
+    <Folder Include="Utilities\Hashing\" />
+    <Folder Include="Utilities\Results\" />
+    <Folder Include="Utilities\Security\" />
+    <Folder Include="Utilities\Validation\" />
+    <Folder Include="Utilities\Results\Abstract\" />
+    <Folder Include="Utilities\Results\ComplexTypes\" />
+    <Folder Include="Utilities\Results\Concrete\" />
+    <Folder Include="Utilities\Security\Encryption\" />
+    <Folder Include="Utilities\Security\Jwt\" />
+    <Folder Include="Utilities\Validation\FluentValidation\" />
+    <Folder Include="Global\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.14.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.14.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+  </ItemGroup>
+</Project>
