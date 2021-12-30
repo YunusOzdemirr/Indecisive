@@ -4,7 +4,7 @@ using Shared.Entities.Abstract;
 
 namespace Entities.Concrete
 {
-    public class User:EntityBase<int>,IEntity
+    public class User : EntityBase<int>, IEntity
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -18,9 +18,9 @@ namespace Entities.Concrete
         public DateTime? LastLogin { get; set; }
         public bool IsEmailAddressVerified { get; set; }
         public bool IsAdmin { get; set; }
-        public ICollection<Role> Roles{ get; set; }
-        public ICollection<Picture> Pictures{ get; set; }
-        public ICollection<Product> FavProducts{ get; set; }
+        public ICollection<Role> Roles { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
+        public ICollection<Product> FavProducts { get; set; }
         public ICollection<Category> FavCategories { get; set; }
     }
 }

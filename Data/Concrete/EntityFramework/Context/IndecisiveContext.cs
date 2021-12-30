@@ -1,4 +1,5 @@
 ﻿using System;
+using Data.Concrete.EntityFramework.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Concrete.EntityFramework.Context
@@ -7,7 +8,12 @@ namespace Data.Concrete.EntityFramework.Context
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new CompanyMap());
+            modelBuilder.ApplyConfiguration(new PictureMap());
+            modelBuilder.ApplyConfiguration(new ProductMap());
+            modelBuilder.ApplyConfiguration(new RoleMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
             base.OnModelCreating(modelBuilder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -18,6 +18,7 @@ namespace Data.Concrete.EntityFramework.Mappings
             builder.Property(a => a.Gender).IsRequired();
             builder.Property(a => a.Email).IsRequired();
             builder.Property(a => a.Email).HasMaxLength(100);
+            builder.ToTable("Users");
         }
     }
 }
