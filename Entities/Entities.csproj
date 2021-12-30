@@ -16,4 +16,7 @@
     <Folder Include="ComplexTypes\" />
     <Folder Include="Dtos\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
 </Project>
