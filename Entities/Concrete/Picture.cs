@@ -5,8 +5,8 @@ namespace Entities.Concrete
 {
     public class Picture:EntityBase<int>,IEntity
     {
-        public int ObjectId { get; set; }
-        public object Object{ get; set; }
+        public int UserId { get; set; }
+        public User User{ get; set; }
         public byte[] File{ get; set; }
     }
 }

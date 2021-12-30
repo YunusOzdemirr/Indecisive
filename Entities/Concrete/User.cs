@@ -18,8 +18,10 @@ namespace Entities.Concrete
         public DateTime? LastLogin { get; set; }
         public bool IsEmailAddressVerified { get; set; }
         public bool IsAdmin { get; set; }
-        public IEnumerable<Picture> Pictures{ get; set; }
-        public IEnumerable<Product> FavProducts{ get; set; }
+        public ICollection<Role> Roles{ get; set; }
+        public ICollection<Picture> Pictures{ get; set; }
+        public ICollection<Product> FavProducts{ get; set; }
+        public ICollection<Category> FavCategories { get; set; }
     }
 }
 

@@ -6,10 +6,9 @@ namespace Entities.Concrete
     public class Company:EntityBase<int>,IEntity
     {
         public string Name { get; set; }
-        public IEnumerable<Product> Products{ get; set; }
-        public IEnumerable<Category> Categories{ get; set; }
+        public ICollection<Product> Products{ get; set; }
         public double PossibilityPercent { get; set; }
-
+        public ICollection<CategoryAndCompany> CategoriesAndCompany{ get; set; }
     }
 }
 

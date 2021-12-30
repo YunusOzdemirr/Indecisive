@@ -8,7 +8,9 @@ namespace Entities.Concrete
         public string Name { get; set; }
         public int? CompanyId{ get; set; }
         public Company? Company { get; set; }
-        public IEnumerable<Category> Categories { get; set; }
+        public int? UserId { get; set; }
+        public User? User { get; set; }
+        public ICollection<Category> Categories { get; set; }
         public double PossibilityPercent { get; set; }
 
     }
