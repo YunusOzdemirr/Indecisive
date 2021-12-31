@@ -22,6 +22,7 @@ namespace Entities.Concrete
         public ICollection<Picture> Pictures { get; set; }
         public ICollection<Product> FavProducts { get; set; }
         public ICollection<Category> FavCategories { get; set; }
+        public ICollection<Product> LuckyProducts { get; set; }
     }
 }
 
