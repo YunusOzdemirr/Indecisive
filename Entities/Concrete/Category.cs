@@ -13,8 +13,7 @@ namespace Entities.Concrete
         public User User { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public int ProductId { get; set; }
-        public ICollection<CategoryAndProduct> CategoryAndProducts{ get; set; }
+        public ICollection<CategoryAndProduct> CategoryAndProducts { get; set; }
     }
 }
 
