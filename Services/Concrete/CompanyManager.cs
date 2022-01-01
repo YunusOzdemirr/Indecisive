@@ -35,7 +35,7 @@ namespace Services.Concrete
 
         public async Task<IResult> DeleteAsync(int companyId)
         {
-            var company = await DbContext.Companies.AsNoTracking().SingleOrDefaultAsync(a => a.Id == companyId);
+            var company = await DbContext.Companies.SingleOrDefaultAsync(a => a.Id == companyId);
             if (company is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir Şirket Bulunmamakta", "Id"));
 
@@ -104,19 +104,37 @@ namespace Services.Concrete
             });
         }
 
-        public Task<IResult> GetByIdAsync(int companyId)
+        public async Task<IResult> GetByIdAsync(int companyId)
         {
-            throw new NotImplementedException();
+            var company = await DbContext.Companies.AsNoTracking().SingleOrDefaultAsync(a => a.Id == companyId);
+            if (company is null)
+                throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir şirket bulunamadı", "Id"));
+
+            return new Result(ResultStatus.Succes, company);
         }
 
-        public Task<IResult> HardDeleteAsync(int companyId)
+        public async Task<IResult> HardDeleteAsync(int companyId)
         {
-            throw new NotImplementedException();
+            var company = await DbContext.Companies.SingleOrDefaultAsync(a => a.Id == companyId);
+            if (company is null)
+                throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir şirket bulunamadı", "Id"));
+
+            DbContext.Companies.Remove(company);
+            await DbContext.SaveChangesAsync();
+            return new Result(ResultStatus.Succes, true);
         }
 
-        public Task<IResult> UpdateAsync(CompanyUpdateDto companyUpdateDto)
+        public async Task<IResult> UpdateAsync(CompanyUpdateDto companyUpdateDto)
         {
-            throw new NotImplementedException();
+            var OldCompany = await DbContext.Companies.SingleOrDefaultAsync(a => a.Id == companyUpdateDto.Id);
+            if (OldCompany is null)
+                throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir şirket bulunamadı", "Id"));
+
+            var company = Mapper.Map<CompanyUpdateDto, Company>(companyUpdateDto, OldCompany);
+            company.ModifiedDate = DateTime.Now;
+            DbContext.Companies.Update(company);
+            await DbContext.SaveChangesAsync();
+            return new Result(ResultStatus.Succes, company);
         }
     }
 }
