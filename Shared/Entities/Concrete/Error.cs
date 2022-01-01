@@ -3,14 +3,14 @@ namespace Shared.Entities.Concrete
 {
     public class Error
     {
-        public Error(string propertyName,string message)
+        public Error(string message, string propertyName)
         {
-            PropertyName = propertyName;
             Message = message;
-        }
-        public Error(string propertyName)
-        {
             PropertyName = propertyName;
+        }
+        public Error(string message)
+        {
+            Message = message;
         }
         public Error()
         {

@@ -6,12 +6,13 @@ using Services.Concrete;
 
 namespace Services.Extensions
 {
-    public static class ServiceCollectionExtension
+    public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection LoadMyService(this IServiceCollection services)
+        public static IServiceCollection LoadMyServices(this IServiceCollection services)
         {
             services.AddDbContext<IndecisiveContext>();
             services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddScoped<ICompanyService, CompanyManager>();
             return services;
         }
     }
