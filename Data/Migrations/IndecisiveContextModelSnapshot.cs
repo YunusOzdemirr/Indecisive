@@ -68,9 +68,6 @@ namespace Data.Migrations
                     b.Property<double>("PossibilityPercent")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 

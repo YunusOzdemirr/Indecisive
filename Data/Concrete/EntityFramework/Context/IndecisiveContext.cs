@@ -25,7 +25,7 @@ namespace Data.Concrete.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new RoleMap());
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new CategoryAndProductMap());
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new PremiumProductMap());
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
