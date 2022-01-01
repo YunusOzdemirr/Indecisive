@@ -21,13 +21,13 @@ namespace Services.Concrete
         {
         }
 
-        public async Task<IResult> AddAsync(Category category)
+        public async Task<IResult> AddAsync(CategoryAddDto categoryAddDto)
         {
-            var categoryResult = await DbContext.Categories.AsNoTracking().AnyAsync(a => a.Name == category.Name);
+            var categoryResult = await DbContext.Categories.AsNoTracking().AnyAsync(a => a.Name == categoryAddDto.Name);
             if (categoryResult)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Bu kategori zaten mevcut"));
 
-            //var category = Mapper.Map<Category>(categoryAddDto);
+            var category = Mapper.Map<Category>(categoryAddDto);
             await DbContext.Categories.AddAsync(category);
             await DbContext.SaveChangesAsync();
             return new Result(ResultStatus.Succes, category);
@@ -102,18 +102,19 @@ namespace Services.Concrete
 
         public async Task<IResult> GetByIdAsync(int categoryId)
         {
-            var category = await DbContext.Categories.SingleOrDefaultAsync(a => a.Id == categoryId);
+            var category = await DbContext.Categories.AsNoTracking().SingleOrDefaultAsync(a => a.Id == categoryId);
             if (category is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir kategori bulunmamakta", "Id"));
 
             return new Result(ResultStatus.Succes, category);
         }
 
-        public async Task<IResult> UpdateAsync(Category category)
+        public async Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
         {
-            var categoryResult = await DbContext.Categories.SingleOrDefaultAsync(a => a.Id == category.Id);
-            if (categoryResult is null)
+            var OldCategory = await DbContext.Categories.SingleOrDefaultAsync(a => a.Id == categoryUpdateDto.Id);
+            if (OldCategory is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir kategori bulunamadı", "Id"));
+            var category = Mapper.Map<CategoryUpdateDto, Category>(categoryUpdateDto, OldCategory);
             category.ModifiedDate = DateTime.Now;
             DbContext.Categories.Update(category);
             await DbContext.SaveChangesAsync();

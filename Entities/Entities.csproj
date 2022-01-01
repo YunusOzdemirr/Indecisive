@@ -11,12 +11,14 @@
     <None Remove="ComplexTypes\" />
     <None Remove="Dtos\" />
     <None Remove="Dtos\CategoryDtos\" />
+    <None Remove="Dtos\CompanyDtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\" />
     <Folder Include="ComplexTypes\" />
     <Folder Include="Dtos\" />
     <Folder Include="Dtos\CategoryDtos\" />
+    <Folder Include="Dtos\CompanyDtos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
