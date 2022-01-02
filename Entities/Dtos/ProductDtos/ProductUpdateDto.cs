@@ -12,5 +12,7 @@ namespace Entities.Dtos.ProductDtos
         public double PossibilityPercent { get; set; }
         public int? CompanyId { get; set; }
         public int? UserId { get; set; }
+        public bool? IsActive { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }

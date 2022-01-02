@@ -11,6 +11,7 @@ namespace Entities.Concrete
         public CompanyType CompanyType { get; set; }
         public byte[]? Picture { get; set; }
         public int? PremiumProductCount { get; set; }
+        public int? ProductCount { get; set; }
         public ICollection<Category>? Categories { get; set; }
         public ICollection<Product>? Products { get; set; }
         public ICollection<Role>? Roles { get; set; }

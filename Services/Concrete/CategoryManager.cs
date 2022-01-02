@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Reflection.Metadata;
+using System;
 using AutoMapper;
 using Data.Concrete.EntityFramework.Context;
 using Entities.Concrete;
@@ -28,6 +29,34 @@ namespace Services.Concrete
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Bu kategori zaten mevcut"));
 
             var category = Mapper.Map<Category>(categoryAddDto);
+            if (categoryAddDto.CompanyId.HasValue)
+            {
+                var company = await DbContext.Companies.SingleOrDefaultAsync(a => a.Id == categoryAddDto.CompanyId);
+                if (company is not null)
+                {
+                    company.ModifiedDate = DateTime.Now;
+                    company.Categories.Add(category);
+                    DbContext.Companies.Update(company);
+                }
+                else
+                {
+                    throw new NotFoundException(Messages.General.NotFoundArgument(), new Error("Böyle bir şirket bulunamadı", "CompanyId"));
+                }
+            }
+            if (categoryAddDto.UserId.HasValue)
+            {
+                var user = await DbContext.Users.SingleOrDefaultAsync(a => a.Id == categoryAddDto.UserId);
+                if (user is not null)
+                {
+                    user.ModifiedDate = DateTime.Now;
+                    user.FavCategories.Add(category);
+                    DbContext.Users.Update(user);
+                }
+                else
+                {
+                    throw new NotFoundException(Messages.General.NotFoundArgument(), new Error("Böyle bir kullanıcı bulunamadı", "UserId"));
+                }
+            }
             await DbContext.Categories.AddAsync(category);
             await DbContext.SaveChangesAsync();
             return new Result(ResultStatus.Succes, category);
@@ -50,6 +79,7 @@ namespace Services.Concrete
             IQueryable<Category> query = DbContext.Set<Category>();
             if (isActive.HasValue) query = query.AsNoTracking().Where(a => a.IsActive == isActive);
             if (isDeleted.HasValue) query = query.AsNoTracking().Where(a => a.IsDeleted == isDeleted);
+            if (includeCategoryAndProduct) query = query.AsNoTracking().Include(a => a.CategoryAndProducts);
             pageSize = pageSize > 100 ? 100 : pageSize;
             var categoryCount = query.AsNoTracking().Count();
             switch (orderBy)
@@ -73,12 +103,12 @@ namespace Services.Concrete
                 PageSize = pageSize
             });
         }
-
-        public async Task<IResult> GetAllWithoutPagingAsync(bool? isActive, bool? isDeleted, bool isAscending, OrderBy orderBy)
+        public async Task<IResult> GetAllWithoutPagingAsync(bool? isActive, bool? isDeleted, bool isAscending, OrderBy orderBy, bool includeCategoryAndProducts)
         {
             IQueryable<Category> query = DbContext.Set<Category>().AsNoTracking();
             if (isActive.HasValue) query = query.Where(a => a.IsActive == isActive);
             if (isDeleted.HasValue) query = query.Where(a => a.IsDeleted == isDeleted);
+            if (includeCategoryAndProducts) query = query.AsNoTracking().Include(a => a.CategoryAndProducts);
 
             switch (orderBy)
             {
@@ -100,14 +130,17 @@ namespace Services.Concrete
             }); ;
         }
 
-        public async Task<IResult> GetByIdAsync(int categoryId)
+        public async Task<IResult> GetByIdAsync(int categoryId, bool includeCategoryAndProducts)
         {
-            var category = await DbContext.Categories.AsNoTracking().SingleOrDefaultAsync(a => a.Id == categoryId);
+            IQueryable<Category> query = DbContext.Set<Category>().AsNoTracking();
+            var category = await query.SingleOrDefaultAsync(a => a.Id == categoryId);
+            if (includeCategoryAndProducts) query = DbContext.Categories.AsNoTracking().Include(a => a.CategoryAndProducts);
             if (category is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir kategori bulunmamakta", "Id"));
-
             return new Result(ResultStatus.Succes, category);
         }
+
+
 
         public async Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
         {
@@ -115,6 +148,42 @@ namespace Services.Concrete
             if (OldCategory is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir kategori bulunamadı", "Id"));
             var category = Mapper.Map<CategoryUpdateDto, Category>(categoryUpdateDto, OldCategory);
+            if (categoryUpdateDto.CompanyId.HasValue)
+            {
+                var company = await DbContext.Companies.SingleOrDefaultAsync(a => a.Id == categoryUpdateDto.CompanyId);
+                if (company is not null)
+                {
+                    if (categoryUpdateDto.ModifiedByUserId != null)
+                        company.ModifiedByUserId = categoryUpdateDto.ModifiedByUserId;
+
+                    company.ModifiedDate = DateTime.Now;
+                    company.Categories.Remove(OldCategory);
+                    company.Categories.Add(category);
+                    DbContext.Companies.Update(company);
+                }
+                else
+                {
+                    throw new NotFoundException(Messages.General.NotFoundArgument(), new Error("Böyle bir şirket bulunamadı", "CompanyId"));
+                }
+            }
+            if (categoryUpdateDto.UserId.HasValue)
+            {
+                var user = await DbContext.Users.SingleOrDefaultAsync(a => a.Id == categoryUpdateDto.UserId);
+                if (user is not null)
+                {
+                    if (categoryUpdateDto.ModifiedByUserId != null)
+                        user.ModifiedByUserId = categoryUpdateDto.ModifiedByUserId;
+
+                    user.ModifiedDate = DateTime.Now;
+                    user.FavCategories.Remove(OldCategory);
+                    user.FavCategories.Add(category);
+                    DbContext.Users.Update(user);
+                }
+                else
+                {
+                    throw new NotFoundException(Messages.General.NotFoundArgument(), new Error("Böyle bir kullanıcı bulunamadı", "UserId"));
+                }
+            }
             category.ModifiedDate = DateTime.Now;
             DbContext.Categories.Update(category);
             await DbContext.SaveChangesAsync();
