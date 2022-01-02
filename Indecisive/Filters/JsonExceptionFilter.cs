@@ -9,9 +9,9 @@ namespace Indecisive.Filters
 {
     public class JsonExceptionFilter : IExceptionFilter
     {
-        private readonly IHostBuilder _env;
+        private readonly IHostEnvironment _env;
         private readonly ILogger _logger;
-        public JsonExceptionFilter(IHostBuilder env, ILogger logger)
+        public JsonExceptionFilter(IHostEnvironment env, ILogger<JsonExceptionFilter> logger)
         {
             _env = env;
             _logger = logger;

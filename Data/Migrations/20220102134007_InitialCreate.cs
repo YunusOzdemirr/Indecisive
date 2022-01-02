@@ -18,7 +18,8 @@ namespace Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PossibilityPercent = table.Column<double>(type: "float", nullable: false),
                     CompanyType = table.Column<int>(type: "int", nullable: false),
-                    PremiumProductCount = table.Column<int>(type: "int", nullable: false),
+                    Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    PremiumProductCount = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedByUserId = table.Column<int>(type: "int", nullable: true),
@@ -67,6 +68,7 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<double>(type: "float", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
@@ -98,8 +100,8 @@ namespace Data.Migrations
                     Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     PossibilityPercent = table.Column<double>(type: "float", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedByUserId = table.Column<int>(type: "int", nullable: true),
@@ -114,14 +116,12 @@ namespace Data.Migrations
                         name: "FK_Categories_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Categories_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -195,6 +195,32 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserPictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    File = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: true),
+                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserPictures_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CategoriesAndProducts",
                 columns: table => new
                 {
@@ -219,15 +245,13 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pictures",
+                name: "ProductPictures",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    File = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    File = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedByUserId = table.Column<int>(type: "int", nullable: true),
@@ -237,23 +261,11 @@ namespace Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pictures", x => x.Id);
+                    table.PrimaryKey("PK_ProductPictures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pictures_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Pictures_Products_ProductId",
+                        name: "FK_ProductPictures_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Pictures_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -274,24 +286,14 @@ namespace Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pictures_CompanyId",
-                table: "Pictures",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pictures_ProductId",
-                table: "Pictures",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pictures_UserId",
-                table: "Pictures",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PremiumProducts_CompanyId",
                 table: "PremiumProducts",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductPictures_ProductId",
+                table: "ProductPictures",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CompanyId",
@@ -317,6 +319,11 @@ namespace Data.Migrations
                 name: "IX_Roles_UserId",
                 table: "Roles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPictures_UserId",
+                table: "UserPictures",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -325,13 +332,16 @@ namespace Data.Migrations
                 name: "CategoriesAndProducts");
 
             migrationBuilder.DropTable(
-                name: "Pictures");
-
-            migrationBuilder.DropTable(
                 name: "PremiumProducts");
 
             migrationBuilder.DropTable(
+                name: "ProductPictures");
+
+            migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "UserPictures");
 
             migrationBuilder.DropTable(
                 name: "Categories");

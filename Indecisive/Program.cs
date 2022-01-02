@@ -12,6 +12,8 @@ using System.Security.Claims;
 using Shared.Utilities.Security.Encryption;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.HttpOverrides;
+using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,7 +75,7 @@ builder.Services.AddSwaggerGen(c =>
                     }
                });
            });
-
+builder.Services.AddLogging();
 // var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<Shared.Utilities.Security.Jwt.TokenOptions>();
 
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -100,9 +102,12 @@ builder.Services.AddSwaggerGen(c =>
 //   policy => policy.RequireClaim(claimType: ClaimTypes.Role, "Admin", "NormalUser")));
 
 var app = builder.Build();
-app.UseMiddleware<ExceptionMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Indecisive.API v1"));
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseRouting();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -110,4 +115,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
 
