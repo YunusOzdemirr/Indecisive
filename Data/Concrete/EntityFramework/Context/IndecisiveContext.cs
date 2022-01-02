@@ -14,13 +14,17 @@ namespace Data.Concrete.EntityFramework.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<PremiumProduct> PremiumProducts { get; set; }
-        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<ProductPicture> ProductPictures { get; set; }
+        public DbSet<UserPicture> UserPictures { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryMap());
             modelBuilder.ApplyConfiguration(new CompanyMap());
-            modelBuilder.ApplyConfiguration(new PictureMap());
+            modelBuilder.ApplyConfiguration(new UserPictureMap());
+            modelBuilder.ApplyConfiguration(new ProductPictureMap());
             modelBuilder.ApplyConfiguration(new ProductMap());
             modelBuilder.ApplyConfiguration(new RoleMap());
             modelBuilder.ApplyConfiguration(new UserMap());

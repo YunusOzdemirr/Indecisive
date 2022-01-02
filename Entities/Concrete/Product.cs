@@ -11,6 +11,7 @@ namespace Entities.Concrete
         public Company? Company { get; set; }
         public int? UserId { get; set; }
         public User? User { get; set; }
+        public ICollection<ProductPicture> ProductPictures { get; set; }
         public ICollection<CategoryAndProduct> CategoryAndProducts { get; set; }
     }
 }

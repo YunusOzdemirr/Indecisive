@@ -21,7 +21,7 @@ builder.Services.AddControllers();
 
 
 // Configure the HTTP request pipeline.
-builder.Services.AddAutoMapper(typeof(CategoryProfile), typeof(CompanyProfile));
+builder.Services.AddAutoMapper(typeof(CategoryProfile), typeof(CompanyProfile), typeof(ProductProfile), typeof(PremiumProductProfile));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
           {

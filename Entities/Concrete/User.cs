@@ -19,7 +19,7 @@ namespace Entities.Concrete
         public bool IsEmailAddressVerified { get; set; }
         public bool IsAdmin { get; set; }
         public ICollection<Role> Roles { get; set; }
-        public ICollection<Picture> Pictures { get; set; }
+        public ICollection<UserPicture> Pictures { get; set; }
         public ICollection<Product> FavProducts { get; set; }
         public ICollection<Category> FavCategories { get; set; }
         public ICollection<Product> LuckyProducts { get; set; }
