@@ -13,6 +13,7 @@ namespace Data.Concrete.EntityFramework.Mappings
             builder.Property(a => a.ProductId).IsRequired();
             builder.HasOne<Product>(a => a.Product).WithMany(a => a.CompanyAndProducts).HasForeignKey(a => a.ProductId);
             builder.HasOne<Company>(a => a.Company).WithMany(a => a.CompanyAndProducts).HasForeignKey(a => a.CompanyId);
+            builder.ToTable("CompanyAndProducts");
         }
     }
 }

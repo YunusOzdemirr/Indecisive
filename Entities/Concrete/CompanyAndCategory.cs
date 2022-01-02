@@ -2,11 +2,11 @@ using Shared.Entities.Abstract;
 
 namespace Entities.Concrete
 {
-    public class CompanyAndProduct : IEntity
+    public class CompanyAndCategory : IEntity
     {
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

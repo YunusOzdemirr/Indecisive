@@ -3,9 +3,10 @@ using Shared.Entities.Abstract;
 
 namespace Entities.Concrete
 {
-    public class PremiumProduct : EntityBase<int>, IEntity
+    public class PremiumProduct : IEntity
     {
-        public string Name { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
         public decimal Price { get; set; }
         public double Discount { get; set; }
         public int CompanyId { get; set; }

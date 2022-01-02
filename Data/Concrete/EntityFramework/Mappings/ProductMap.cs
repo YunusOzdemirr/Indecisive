@@ -13,7 +13,7 @@ namespace Data.Concrete.EntityFramework.Mappings
             builder.Property(a => a.Name).IsRequired();
             builder.Property(a => a.Name).HasMaxLength(150);
             //builder.HasOne<Company>(a => a.Company).WithMany(a => a.Products).HasForeignKey(a => a.CompanyId);
-            builder.HasOne<User>(a => a.User).WithMany(a => a.FavProducts).HasForeignKey(a => a.UserId);
+            // builder.HasOne<User>(a => a.User).WithMany(a => a.FavProducts).HasForeignKey(a => a.UserId);
             builder.ToTable("Products");
             //builder.HasOne<Company> bu kod hangi tip alabileceğini gösteriyor
             //(a=>a.Company)  Product içerisindeki Company den geliyor

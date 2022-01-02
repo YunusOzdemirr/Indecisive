@@ -7,11 +7,12 @@ namespace Entities.Concrete
     {
         public string Name { get; set; }
         public double PossibilityPercent { get; set; }
-        public int? UserId { get; set; }
-        public User? User { get; set; }
         public ICollection<CompanyAndProduct> CompanyAndProducts { get; set; }
         public ICollection<ProductPicture> ProductPictures { get; set; }
         public ICollection<CategoryAndProduct> CategoryAndProducts { get; set; }
+        public ICollection<UserAndProduct> UserAndProducts { get; set; }
+        public ICollection<UserLuckyProduct> UserLuckyProducts { get; set; }
+        public ICollection<PremiumProduct> PremiumProducts { get; set; }
     }
 }
 

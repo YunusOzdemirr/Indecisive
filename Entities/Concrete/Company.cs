@@ -12,10 +12,10 @@ namespace Entities.Concrete
         public byte[]? Picture { get; set; }
         public int? PremiumProductCount { get; set; }
         public int? ProductCount { get; set; }
-        public ICollection<Category>? Categories { get; set; }
-        public ICollection<Role>? Roles { get; set; }
         public ICollection<CompanyAndProduct> CompanyAndProducts { get; set; }
-        public ICollection<PremiumProduct>? PremiumProducts { get; set; }
+        public ICollection<CompanyAndCategory> CompanyAndCategories { get; set; }
+        public ICollection<CompanyAndRole> CompanyAndRoles { get; set; }
+        public ICollection<PremiumProduct> PremiumProducts { get; set; }
     }
 }
 
