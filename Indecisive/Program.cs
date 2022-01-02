@@ -21,13 +21,14 @@ builder.Services.AddControllers();
 
 
 // Configure the HTTP request pipeline.
-builder.Services.LoadMyServices();
 builder.Services.AddAutoMapper(typeof(CategoryProfile), typeof(CompanyProfile));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
           {
               options.SuppressModelStateInvalidFilter = true;
           });
+builder.Services.LoadMyServices();
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
@@ -99,10 +100,9 @@ builder.Services.AddSwaggerGen(c =>
 //   policy => policy.RequireClaim(claimType: ClaimTypes.Role, "Admin", "NormalUser")));
 
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Indecisive.API v1"));
-app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -13,6 +13,7 @@ namespace Services.Extensions
             services.AddDbContext<IndecisiveContext>();
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<ICompanyService, CompanyManager>();
+            services.AddScoped<IProductService, ProductManager>();
             return services;
         }
     }
