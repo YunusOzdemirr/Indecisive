@@ -16,8 +16,7 @@ namespace Data.Concrete.EntityFramework.Context
         public DbSet<PremiumProduct> PremiumProducts { get; set; }
         public DbSet<ProductPicture> ProductPictures { get; set; }
         public DbSet<UserPicture> UserPictures { get; set; }
-
-
+        public DbSet<CompanyAndProduct> CompanyAndProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +29,7 @@ namespace Data.Concrete.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new CategoryAndProductMap());
             modelBuilder.ApplyConfiguration(new PremiumProductMap());
+            modelBuilder.ApplyConfiguration(new CompanyAndProductMap());
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

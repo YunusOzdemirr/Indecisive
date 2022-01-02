@@ -7,10 +7,9 @@ namespace Entities.Concrete
     {
         public string Name { get; set; }
         public double PossibilityPercent { get; set; }
-        public int? CompanyId { get; set; }
-        public Company? Company { get; set; }
         public int? UserId { get; set; }
         public User? User { get; set; }
+        public ICollection<CompanyAndProduct> CompanyAndProducts { get; set; }
         public ICollection<ProductPicture> ProductPictures { get; set; }
         public ICollection<CategoryAndProduct> CategoryAndProducts { get; set; }
     }

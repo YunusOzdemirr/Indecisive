@@ -13,8 +13,8 @@ namespace Entities.Concrete
         public int? PremiumProductCount { get; set; }
         public int? ProductCount { get; set; }
         public ICollection<Category>? Categories { get; set; }
-        public ICollection<Product>? Products { get; set; }
         public ICollection<Role>? Roles { get; set; }
+        public ICollection<CompanyAndProduct> CompanyAndProducts { get; set; }
         public ICollection<PremiumProduct>? PremiumProducts { get; set; }
     }
 }
