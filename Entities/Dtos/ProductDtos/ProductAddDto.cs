@@ -9,7 +9,5 @@ namespace Entities.Dtos.ProductDtos
     {
         public string Name { get; set; }
         public double PossibilityPercent { get; set; }
-        public int? CompanyId { get; set; }
-        public int? UserId { get; set; }
     }
 }

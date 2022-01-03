@@ -9,7 +9,7 @@ namespace Services.AutoMapper.Profiles
         public PremiumProductProfile()
         {
             CreateMap<PremiumProductAddDto, PremiumProduct>();
-            CreateMap<PremiumProductUpdateDto, PremiumProduct>().ForMember(a => a.ModifiedDate, x => x.MapFrom(x => DateTime.Now));
+            CreateMap<PremiumProductUpdateDto, PremiumProduct>();//.ForMember(a => a.ModifiedDate, x => x.MapFrom(x => DateTime.Now));
         }
     }
 }

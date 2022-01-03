@@ -3,7 +3,7 @@ using Shared.Entities.Abstract;
 
 namespace Entities.Concrete
 {
-    public class PremiumProduct : IEntity
+    public class PremiumProduct : ManyToManyBase, IEntity
     {
         public int ProductId { get; set; }
         public Product Product { get; set; }

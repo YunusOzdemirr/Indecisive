@@ -8,10 +8,6 @@ namespace Entities.Dtos.CategoryDtos
         public string Description { get; set; }
         public double PossibilityPercent { get; set; }
         public int? CreatedByUserId { get; set; }
-        public int? UserId { get; set; }
-        public int? CompanyId { get; set; }
-
-
     }
 }
 

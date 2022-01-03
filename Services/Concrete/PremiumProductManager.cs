@@ -23,7 +23,7 @@ namespace Services.Concrete
 
         public async Task<IResult> AddAsync(PremiumProductAddDto premiumProductAddDto)
         {
-            var IsExistProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.Name == premiumProductAddDto.Name && a.CompanyId == premiumProductAddDto.CompanyId);
+            var IsExistProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.Product.Id == premiumProductAddDto.ProductId && a.CompanyId == premiumProductAddDto.CompanyId);
             if (IsExistProduct is not null)
                 throw new ExistArgumentException(Messages.General.IsExistArgument(), new Error("Name && CompanyId"));
 
@@ -35,7 +35,7 @@ namespace Services.Concrete
 
         public async Task<IResult> DeleteAsync(int premiumProductId, int companyId)
         {
-            var premiumProduct = await DbContext.PremiumProducts.SingleOrDefaultAsync(a => a.Id == premiumProductId && a.CompanyId == companyId);
+            var premiumProduct = await DbContext.PremiumProducts.SingleOrDefaultAsync(a => a.ProductId == premiumProductId && a.CompanyId == companyId);
             if (premiumProduct is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id"));
             premiumProduct.IsActive = false;
@@ -54,10 +54,10 @@ namespace Services.Concrete
             switch (orderBy)
             {
                 case OrderBy.Id:
-                    query = isAscending ? query.OrderBy(a => a.Id) : query.OrderByDescending(a => a.Id);
+                    query = isAscending ? query.OrderBy(a => a.CompanyId) : query.OrderByDescending(a => a.CompanyId);
                     break;
                 case OrderBy.Az:
-                    query = isAscending ? query.OrderBy(a => a.Name) : query.OrderByDescending(a => a.Name);
+                    query = isAscending ? query.OrderBy(a => a.Product.Name) : query.OrderByDescending(a => a.Product.Name);
                     break;
                 case OrderBy.ModifiedDate:
                     query = isAscending ? query.OrderBy(a => a.ModifiedDate) : query.OrderByDescending(a => a.ModifiedDate);
@@ -93,10 +93,10 @@ namespace Services.Concrete
             switch (orderBy)
             {
                 case OrderBy.Id:
-                    query = isAscending ? query.OrderBy(a => a.Id) : query.OrderByDescending(a => a.Id);
+                    query = isAscending ? query.OrderBy(a => a.CompanyId) : query.OrderByDescending(a => a.CompanyId);
                     break;
                 case OrderBy.Az:
-                    query = isAscending ? query.OrderBy(a => a.Name) : query.OrderByDescending(a => a.Name);
+                    query = isAscending ? query.OrderBy(a => a.Product.Name) : query.OrderByDescending(a => a.Product.Name);
                     break;
                 case OrderBy.ModifiedDate:
                     query = isAscending ? query.OrderBy(a => a.ModifiedDate) : query.OrderByDescending(a => a.ModifiedDate);
@@ -115,7 +115,7 @@ namespace Services.Concrete
 
         public async Task<IResult> GetByIdAsync(int premiumProductId, int companyId)
         {
-            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.Id == premiumProductId && a.CompanyId == companyId);
+            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == premiumProductId && a.CompanyId == companyId);
             if (premiumProduct is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id && CompanyId"));
             return new Result(ResultStatus.Succes, premiumProduct);
@@ -123,7 +123,7 @@ namespace Services.Concrete
 
         public async Task<IResult> HardDeleteAsync(int premiumProductId, int companyId)
         {
-            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.Id == premiumProductId && a.CompanyId == companyId);
+            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == premiumProductId && a.CompanyId == companyId);
             if (premiumProduct is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id && CompanyId"));
 
@@ -134,7 +134,7 @@ namespace Services.Concrete
 
         public async Task<IResult> UpdateAsync(PremiumProductUpdateDto premiumProductUpdateDto)
         {
-            var oldPremiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.Id == premiumProductUpdateDto.Id && a.CompanyId == premiumProductUpdateDto.CompanyId);
+            var oldPremiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == premiumProductUpdateDto.ProductId && a.CompanyId == premiumProductUpdateDto.CompanyId);
             if (oldPremiumProduct is null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id && CompanyId"));
 
