@@ -11,7 +11,7 @@ namespace Data.Concrete.EntityFramework.Mappings
             builder.HasKey(a => new { a.UserId, a.CategoryId });
             builder.Property(a => a.CategoryId).IsRequired();
             builder.Property(a => a.UserId).IsRequired();
-            builder.HasOne<User>(a => a.User).WithMany(a => a.CategoryAndUsers).HasForeignKey(a => a.UserId);
+            builder.HasOne<User>(a => a.User).WithMany(a => a.FavCategory).HasForeignKey(a => a.UserId);
             builder.HasOne<Category>(a => a.Category).WithMany(a => a.CategoryAndUsers).HasForeignKey(a => a.CategoryId);
             builder.ToTable("CategoryAndUsers");
         }

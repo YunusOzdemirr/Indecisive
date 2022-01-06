@@ -9,13 +9,13 @@ namespace Services.Utilities
             {
                 return "Bir veya daha fazla validasyon hatası ile karşılaşıldı";
             }
-            public static string IsExistArgument()
+            public static string IsExistArgument(string argumentName)
             {
-                return "Bu nesne zaten mevcut";
+                return $"Bu {argumentName} zaten mevcut";
             }
-            public static string NotFoundArgument()
+            public static string NotFoundArgument(string argumentName)
             {
-                return "Böyle bir nesne bulunamadı";
+                return $"Böyle bir {argumentName} bulunamadı";
             }
         }
     }

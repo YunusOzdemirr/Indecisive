@@ -25,7 +25,7 @@ namespace Services.Concrete
         {
             var IsExistProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.Product.Id == premiumProductAddDto.ProductId && a.CompanyId == premiumProductAddDto.CompanyId);
             if (IsExistProduct is not null)
-                throw new ExistArgumentException(Messages.General.IsExistArgument(), new Error("Name && CompanyId"));
+                throw new ExistArgumentException(Messages.General.IsExistArgument(IsExistProduct.Product.Name), new Error("Name && CompanyId"));
 
             var premiumProduct = Mapper.Map<PremiumProduct>(premiumProductAddDto);
             await DbContext.PremiumProducts.AddAsync(premiumProduct);
@@ -37,7 +37,7 @@ namespace Services.Concrete
         {
             var premiumProduct = await DbContext.PremiumProducts.SingleOrDefaultAsync(a => a.ProductId == premiumProductId && a.CompanyId == companyId);
             if (premiumProduct is null)
-                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id"));
+                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument("Premium Ürün"), "ProductId || CompanyId"));
             premiumProduct.IsActive = false;
             premiumProduct.IsDeleted = true;
             DbContext.PremiumProducts.Update(premiumProduct);
@@ -77,12 +77,29 @@ namespace Services.Concrete
 
         }
 
+        public async Task<IResult> GetAllCompanyByProductId(int productId)
+        {
+            var premiumProducts = DbContext.PremiumProducts.Where(a => a.ProductId == productId);
+            if (premiumProducts == null)
+                throw new NotFoundException(Messages.General.NotFoundArgument("Ürün"), new Error("Böyle bir ürün bulunamadı"));
+
+            foreach (var premiumProduct in premiumProducts)
+            {
+                premiumProduct.Company = await DbContext.Companies.SingleOrDefaultAsync(a => a.Id == premiumProduct.CompanyId);
+            }
+            return new Result(ResultStatus.Succes, premiumProducts);
+        }
+
         public async Task<IResult> GetAllProductByCompanyId(int companyId)
         {
-            var products = DbContext.PremiumProducts.Where(a => a.CompanyId == companyId);
-            if (products is null)
-                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id"));
-            return new Result(ResultStatus.Succes, await Task.FromResult(products));
+            var premiumProducts = DbContext.PremiumProducts.Where(a => a.CompanyId == companyId);
+            if (premiumProducts is null)
+                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument("Şirket"), "CompanyId"));
+            foreach (var premiumProduct in premiumProducts)
+            {
+                premiumProduct.Product = await DbContext.Products.SingleOrDefaultAsync(a => a.Id == premiumProduct.ProductId);
+            }
+            return new Result(ResultStatus.Succes, await Task.FromResult(premiumProducts));
         }
 
         public async Task<IResult> GetAllWithoutPageAsync(bool? isActive, bool? isDeleted, bool isAscending, OrderBy orderBy)
@@ -113,19 +130,19 @@ namespace Services.Concrete
             });
         }
 
-        public async Task<IResult> GetByIdAsync(int premiumProductId, int companyId)
+        public async Task<IResult> GetByIdAsync(int productId, int companyId)
         {
-            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == premiumProductId && a.CompanyId == companyId);
+            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == productId && a.CompanyId == companyId);
             if (premiumProduct is null)
-                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id && CompanyId"));
+                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument("Premium Ürün"), "ProductId && CompanyId"));
             return new Result(ResultStatus.Succes, premiumProduct);
         }
 
-        public async Task<IResult> HardDeleteAsync(int premiumProductId, int companyId)
+        public async Task<IResult> HardDeleteAsync(int productId, int companyId)
         {
-            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == premiumProductId && a.CompanyId == companyId);
+            var premiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == productId && a.CompanyId == companyId);
             if (premiumProduct is null)
-                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id && CompanyId"));
+                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument("Premium Şirket"), "ProductId && CompanyId"));
 
             DbContext.PremiumProducts.Remove(premiumProduct);
             await DbContext.SaveChangesAsync();
@@ -136,7 +153,7 @@ namespace Services.Concrete
         {
             var oldPremiumProduct = await DbContext.PremiumProducts.AsNoTracking().SingleOrDefaultAsync(a => a.ProductId == premiumProductUpdateDto.ProductId && a.CompanyId == premiumProductUpdateDto.CompanyId);
             if (oldPremiumProduct is null)
-                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument(), "Id && CompanyId"));
+                throw new NotFoundException(Messages.General.ValidationError(), new Error(Messages.General.NotFoundArgument("Premium Ürün"), "ProductId && CompanyId"));
 
             var newPremiumProduct = Mapper.Map<PremiumProductUpdateDto, PremiumProduct>(premiumProductUpdateDto, oldPremiumProduct);
             DbContext.PremiumProducts.Update(newPremiumProduct);

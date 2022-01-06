@@ -20,9 +20,9 @@ namespace Entities.Concrete
         public bool IsAdmin { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<UserPicture> Pictures { get; set; }
-        public ICollection<UserAndProduct> UserAndProducts { get; set; }
+        public ICollection<UserAndProduct> FavProducts { get; set; }
         public ICollection<UserLuckyProduct> UserLuckyProducts { get; set; }
-        public ICollection<CategoryAndUser> CategoryAndUsers { get; set; }
+        public ICollection<CategoryAndUser> FavCategory { get; set; }
 
     }
 }

@@ -20,7 +20,6 @@ namespace Data.Concrete.EntityFramework.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.ApplyConfiguration(new CategoryAndProductMap());
             modelBuilder.ApplyConfiguration(new CategoryAndUserMap());
             modelBuilder.ApplyConfiguration(new CompanyAndCategoryMap());
