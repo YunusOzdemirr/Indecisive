@@ -16,6 +16,7 @@ namespace Services.Extensions
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<IPremiumProductService, PremiumProductManager>();
             services.AddScoped<IRoleService, RoleManager>();
+            services.AddScoped<ICategoryAndProductService, CategoryAndProductManager>();
             return services;
         }
     }
