@@ -49,9 +49,11 @@ namespace Services.Concrete
             return new Result(ResultStatus.Succes, categoryAndProduct, "Başarıyla silindi");
         }
 
-        public async Task<IResult> GetAllAsync(bool isAscending, OrderBy orderBy)
+        public async Task<IResult> GetAllAsync(bool isAscending, OrderBy orderBy, bool includeCategory, bool includeProduct)
         {
             IQueryable<CategoryAndProduct> query = DbContext.Set<CategoryAndProduct>().AsNoTracking();
+            if (includeCategory) query = query.Include(a => a.Category);
+            if (includeProduct) query = query.Include(a => a.Product);
             // var categoryAndProduct = await DbContext.CategoryAndProducts.ToListAsync();
             switch (orderBy)
             {
@@ -79,7 +81,7 @@ namespace Services.Concrete
 
         public async Task<IResult> GetById(int categoryId, int productId)
         {
-            var categoryAndProduct = await DbContext.CategoryAndProducts.SingleOrDefaultAsync(a => a.CategoryId == categoryId && a.ProductId == productId);
+            var categoryAndProduct = await DbContext.CategoryAndProducts.Include(a => a.Product).Include(a => a.Category).SingleOrDefaultAsync(a => a.CategoryId == categoryId && a.ProductId == productId);
             if (categoryAndProduct == null)
                 throw new NotFoundException(Messages.General.NotFoundArgument("Kategoriye ait"), new Error("Böyle bir kategoriye ait ürün bulunamadı", "CategoryId && ProductId"));
             return new Result(ResultStatus.Succes, categoryAndProduct);
@@ -87,7 +89,7 @@ namespace Services.Concrete
 
         public async Task<IResult> GetCategoryByProductId(int productId)
         {
-            var categoryAndProducts = await DbContext.CategoryAndProducts.Where(a => a.ProductId == productId).ToListAsync();
+            var categoryAndProducts = await DbContext.CategoryAndProducts.Include(a => a.Category).Where(a => a.ProductId == productId).ToListAsync();
             if (categoryAndProducts is null)
                 throw new NotFoundException(Messages.General.NotFoundArgument("ürün'e ait kategori"), new Error("Böyle bir ürün'e ait kategori bulunamadı.", "productId"));
             List<Category> categories = new List<Category>();
@@ -100,7 +102,7 @@ namespace Services.Concrete
 
         public async Task<IResult> GetProductByCategoryId(int categoryId)
         {
-            var categoryAndProduct = await DbContext.CategoryAndProducts.Where(a => a.CategoryId == categoryId).ToListAsync();
+            var categoryAndProduct = await DbContext.CategoryAndProducts.Include(a => a.Product).Where(a => a.CategoryId == categoryId).ToListAsync();
             if (categoryAndProduct is null)
                 throw new NotFoundException(Messages.General.NotFoundArgument("kategoriye ait ürün"), new Error("Böyle bir kategoriye ait ürün bulunamadı.", "categoryId"));
             List<Product> products = new List<Product>();
@@ -111,23 +113,5 @@ namespace Services.Concrete
             return new Result(ResultStatus.Succes, products);
         }
 
-        public async Task<IResult> UpdateAsync(CategoryAndProductUpdateDto categoryAndProductUpdateDto)
-        {
-            var categoryAndProduct = await DbContext.CategoryAndProducts.SingleOrDefaultAsync(a => a.CategoryId == categoryAndProductUpdateDto.CategoryId && a.ProductId == categoryAndProductUpdateDto.ProductId);
-            if (categoryAndProduct is null)
-                throw new NotFoundException(Messages.General.NotFoundArgument("Kategori ya da Ürün"), new Error("Böyle bir kategori ya da ürün bulunamadı", "CategoryId ProductId"));
-            var product = await DbContext.Products.SingleOrDefaultAsync(a => a.Id == categoryAndProductUpdateDto.ProductId);
-            if (product is null)
-                throw new NotFoundException(Messages.General.NotFoundArgument("Ürün"), new Error("Hata", "productId"));
-
-            var category = await DbContext.Categories.SingleOrDefaultAsync(a => a.Id == categoryAndProductUpdateDto.CategoryId);
-            if (category is null)
-                throw new NotFoundException(Messages.General.NotFoundArgument("Kategori"), new Error("Hata, bulunamadı.", "CategoryId"));
-
-            var newCategoryAndProduct = Mapper.Map<CategoryAndProductUpdateDto, CategoryAndProduct>(categoryAndProductUpdateDto, categoryAndProduct);
-            newCategoryAndProduct.Product = product;
-            newCategoryAndProduct.Category = category;
-            return new Result(ResultStatus.Succes, newCategoryAndProduct, "Başarıyla güncellendi");
-        }
     }
 }

@@ -9,8 +9,7 @@ namespace Services.Abstract
     public interface ICategoryAndProductService
     {
         Task<IResult> AddAsync(CategoryAndProductAddDto categoryAndProductAddDto);
-        Task<IResult> UpdateAsync(CategoryAndProductUpdateDto categoryAndProductUpdateDto);
-        Task<IResult> GetAllAsync(bool isAscending, OrderBy orderBy);
+        Task<IResult> GetAllAsync(bool isAscending, OrderBy orderBy, bool includeCategory, bool includeProduct);
         Task<IResult> GetProductByCategoryId(int categoryId);
         Task<IResult> GetCategoryByProductId(int productId);
         Task<IResult> GetById(int categoryId, int productId);

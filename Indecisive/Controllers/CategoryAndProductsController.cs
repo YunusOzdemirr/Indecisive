@@ -20,21 +20,15 @@ namespace Namespace
         }
 
         [HttpGet("GetAllAsync")]
-        public async Task<IActionResult> GetAllAsync(bool isAscending = true, OrderBy orderBy = 0)
+        public async Task<IActionResult> GetAllAsync(bool isAscending = true, OrderBy orderBy = 0, bool includeCategory = false, bool includeProduct = false)
         {
-            var result = await _categoryAndProductService.GetAllAsync(isAscending, orderBy);
+            var result = await _categoryAndProductService.GetAllAsync(isAscending, orderBy, includeCategory, includeProduct);
             return Ok(result);
         }
         [HttpPost("AddAsync")]
         public async Task<IActionResult> AddAsync(CategoryAndProductAddDto categoryAndProductAddDto)
         {
             var result = await _categoryAndProductService.AddAsync(categoryAndProductAddDto);
-            return Ok(result);
-        }
-        [HttpPost("UpdateAsync")]
-        public async Task<IActionResult> UpdateAsync(CategoryAndProductUpdateDto categoryAndProductUpdateDto)
-        {
-            var result = await _categoryAndProductService.UpdateAsync(categoryAndProductUpdateDto);
             return Ok(result);
         }
         [HttpGet("GetProductsByCategoryId")]

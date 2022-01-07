@@ -22,9 +22,9 @@ namespace Namespace
         }
 
         [HttpGet("GetAllAsync")]
-        public async Task<IActionResult> GetAllAsync(GetAll getAll, bool includeCategoryAndProduct)
+        public async Task<IActionResult> GetAllAsync(bool isActive = true, bool isDeleted = false, bool isAscending = true, int currentPage = 1, int pageSize = 20, OrderBy orderBy = 0, bool includeCategoryAndProduct = false)
         {
-            var result = await _categoryService.GetAllAsync(getAll.IsActive, getAll.IsDeleted, getAll.IsAscending, getAll.CurrentPage, getAll.PageSize, getAll.orderBy, includeCategoryAndProduct);
+            var result = await _categoryService.GetAllAsync(isActive, isDeleted, isAscending, currentPage, pageSize, orderBy, includeCategoryAndProduct);
             return Ok(result);
         }
 
