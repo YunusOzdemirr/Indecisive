@@ -9,7 +9,6 @@ namespace Entities.Dtos.CategoryDtos
         public string Description { get; set; }
         public double PossibilityPercent { get; set; }
         public int? ModifiedByUserId { get; set; }
-
         public bool? IsActive { get; set; }
         public bool? IsDeleted { get; set; }
 

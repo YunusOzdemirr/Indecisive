@@ -23,7 +23,7 @@ builder.Services.AddControllers();
 
 
 // Configure the HTTP request pipeline.
-builder.Services.AddAutoMapper(typeof(CategoryProfile), typeof(CompanyProfile), typeof(ProductProfile), typeof(PremiumProductProfile));
+builder.Services.AddAutoMapper(typeof(CategoryProfile), typeof(CompanyProfile), typeof(ProductProfile), typeof(PremiumProductProfile), typeof(CategoryAndProductProfile), typeof(RoleProfile));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
           {
@@ -76,6 +76,8 @@ builder.Services.AddSwaggerGen(c =>
                });
            });
 builder.Services.AddLogging();
+
+
 // var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<Shared.Utilities.Security.Jwt.TokenOptions>();
 
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
