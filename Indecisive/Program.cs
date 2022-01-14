@@ -44,6 +44,7 @@ builder.Services.AddControllers(options =>
                 options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             });
+
 builder.Services.AddSwaggerGen(c =>
            {
                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Indecisive.Api", Version = "v1" });
@@ -76,7 +77,6 @@ builder.Services.AddSwaggerGen(c =>
                });
            });
 builder.Services.AddLogging();
-
 
 // var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<Shared.Utilities.Security.Jwt.TokenOptions>();
 

@@ -78,6 +78,7 @@ namespace Services.Concrete
 
         public async Task<IResult> GetAllWithoutPageSize(bool? isActive, bool? isDeleted, bool isAscending, OrderBy orderBy)
         {
+
             IQueryable<Company> query = DbContext.Set<Company>().AsNoTracking();
             if (isActive.HasValue) query = query.Where(a => a.IsActive == isActive);
             if (isDeleted.HasValue) query = query.Where(a => a.IsDeleted == isDeleted);

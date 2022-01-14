@@ -4,7 +4,7 @@ using Shared.Utilities.Results.ComplexTypes;
 
 namespace Shared.Utilities.Results.Concrete
 {
-    public class Result:IResult
+    public class Result : IResult
     {
         public Result(ResultStatus resultStatus)
         {
@@ -30,6 +30,7 @@ namespace Shared.Utilities.Results.Concrete
         {
             Data = data;
         }
+
         public ResultStatus ResultStatus { get; set; }
         public string Message { get; set; }
         public object Data { get; set; }

@@ -22,6 +22,7 @@
     <None Remove="ValidationRules\FluentValidation\" />
     <None Remove="AutoMapper\" />
     <None Remove="AutoMapper\Profiles\" />
+    <None Remove="ValidationRules\FluentValidation\ProductValidations\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
@@ -41,6 +42,7 @@
     <Folder Include="ValidationRules\FluentValidation\" />
     <Folder Include="AutoMapper\" />
     <Folder Include="AutoMapper\Profiles\" />
+    <Folder Include="ValidationRules\FluentValidation\ProductValidations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />

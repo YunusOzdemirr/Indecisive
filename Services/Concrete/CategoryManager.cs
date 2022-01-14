@@ -24,6 +24,8 @@ namespace Services.Concrete
 
         public async Task<IResult> AddAsync(CategoryAddDto categoryAddDto)
         {
+
+
             var categoryResult = await DbContext.Categories.AsNoTracking().AnyAsync(a => a.Name == categoryAddDto.Name);
             if (categoryResult)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Bu kategori zaten mevcut"));
@@ -39,7 +41,7 @@ namespace Services.Concrete
             var category = await DbContext.Categories.AsNoTracking().SingleOrDefaultAsync(a => a.Id == categoryId);
             if (category == null)
                 throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir kategori bulunmamakta", "CategoryId"));
-            category.IsDeleted = false;
+            category.IsDeleted = true;
             category.IsActive = false;
             DbContext.Categories.Update(category);
             await DbContext.SaveChangesAsync();
@@ -108,7 +110,7 @@ namespace Services.Concrete
             var category = await query.SingleOrDefaultAsync(a => a.Id == categoryId);
             if (includeCategoryAndProducts) query = DbContext.Categories.AsNoTracking().Include(a => a.CategoryAndProducts);
             if (category is null)
-                throw new NotFoundException(Messages.General.ValidationError(), new Error("Böyle bir kategori bulunmamakta", "Id"));
+                throw new NotFoundException(Messages.General.NotFoundArgument("kategori"), new Error("Böyle bir kategori bulunmamakta", "Id"));
             return new Result(ResultStatus.Succes, category);
         }
 
