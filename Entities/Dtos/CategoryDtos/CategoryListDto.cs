@@ -1,5 +1,4 @@
-﻿using System;
-using Entities.Concrete;
+﻿using Entities.Concrete;
 using Shared.Entities.Abstract;
 
 namespace Entities.Dtos.CategoryDtos

@@ -1,5 +1,4 @@
-﻿using System;
-using Shared.Utilities.Results.Abstract;
+﻿using Shared.Utilities.Results.Abstract;
 using Shared.Utilities.Results.ComplexTypes;
 
 namespace Shared.Utilities.Results.Concrete

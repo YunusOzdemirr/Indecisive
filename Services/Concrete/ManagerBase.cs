@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Data.Concrete.EntityFramework.Context;
 
 namespace Services.Concrete

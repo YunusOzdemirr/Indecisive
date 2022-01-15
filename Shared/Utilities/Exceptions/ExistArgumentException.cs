@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 namespace Shared.Utilities.Exceptions
 {
     public class ExistArgumentException : Exception

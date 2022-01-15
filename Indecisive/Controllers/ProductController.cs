@@ -1,8 +1,3 @@
-using System.Net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Entities.Dtos.ProductDtos;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;

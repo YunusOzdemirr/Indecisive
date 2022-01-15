@@ -1,5 +1,4 @@
-﻿using System;
-using Shared.Entities.Abstract;
+﻿using Shared.Entities.Abstract;
 
 namespace Entities.Concrete
 {

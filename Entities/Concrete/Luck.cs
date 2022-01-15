@@ -1,6 +1,4 @@
-﻿using System;
-using Shared.Entities.Abstract;
-
+﻿
 namespace Entities.Concrete
 {
     public class Luck

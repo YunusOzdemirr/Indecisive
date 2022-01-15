@@ -1,5 +1,4 @@
-﻿using System;
-namespace Entities.Dtos.CategoryDtos
+﻿namespace Entities.Dtos.CategoryDtos
 {
     public class CategoryAddDto
     {

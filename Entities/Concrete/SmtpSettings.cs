@@ -1,5 +1,4 @@
-﻿using System;
-namespace Entities.Concrete
+﻿namespace Entities.Concrete
 {
     public class SmtpSettings
     {

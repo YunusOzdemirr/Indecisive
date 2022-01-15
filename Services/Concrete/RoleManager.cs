@@ -1,6 +1,3 @@
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Data.Common;
 using AutoMapper;
 using Data.Concrete.EntityFramework.Context;
 using Entities.Concrete;

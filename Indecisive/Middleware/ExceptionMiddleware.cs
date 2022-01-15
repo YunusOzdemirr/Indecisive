@@ -1,8 +1,4 @@
 using System.Net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Shared.Utilities.Exceptions;
 using Shared.Utilities.Results.ComplexTypes;
 using Microsoft.AspNetCore.Http.Extensions;

@@ -1,4 +1,3 @@
-using System.Linq;
 using AutoMapper;
 using Data.Concrete.EntityFramework.Context;
 using Entities.Concrete;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entities.ComplexTypes;
 using Shared.Entities.Abstract;
 

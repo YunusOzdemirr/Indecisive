@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Indecisive.Controllers;
+using Microsoft.Extensions.Logging;
 
 [ApiController]
 [Route("[controller]")]

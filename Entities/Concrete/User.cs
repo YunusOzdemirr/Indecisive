@@ -1,5 +1,4 @@
-﻿using System;
-using Entities.ComplexTypes;
+﻿using Entities.ComplexTypes;
 using Shared.Entities.Abstract;
 
 namespace Entities.Concrete
@@ -23,7 +22,5 @@ namespace Entities.Concrete
         public ICollection<UserAndProduct> FavProducts { get; set; }
         public ICollection<UserLuckyProduct> UserLuckyProducts { get; set; }
         public ICollection<CategoryAndUser> FavCategory { get; set; }
-
     }
 }
-

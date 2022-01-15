@@ -1,5 +1,4 @@
-﻿using System;
-namespace Shared.Utilities.Security.Jwt
+﻿namespace Shared.Utilities.Security.Jwt
 {
     public class AccessToken
     {

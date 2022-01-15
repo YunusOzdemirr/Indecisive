@@ -1,5 +1,4 @@
-﻿using System;
-using Entities.ComplexTypes;
+﻿using Entities.ComplexTypes;
 
 namespace Entities.Dtos.CompanyDtos
 {

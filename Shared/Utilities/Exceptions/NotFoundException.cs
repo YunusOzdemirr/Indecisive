@@ -1,16 +1,13 @@
-﻿using System;
-using Shared.Entities.Concrete;
-
-namespace Shared.Utilities.Exceptions
+﻿namespace Shared.Utilities.Exceptions
 {
-    public class NotFoundException:Exception
+    public class NotFoundException : Exception
     {
-        public NotFoundException(string message,string errorMessage,string PropertyName):base(message)
+        public NotFoundException(string message, string errorMessage, string PropertyName) : base(message)
         {
             ValidationError.PropertyName = PropertyName;
             ValidationError.Message = errorMessage;
         }
-        public NotFoundException(string message,Error error):base(message)
+        public NotFoundException(string message, Error error) : base(message)
         {
             ValidationError = error;
         }

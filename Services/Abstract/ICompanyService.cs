@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Entities.Dtos.CompanyDtos;
 using Shared.Entities.ComplexTypes;
 using Shared.Utilities.Results.Abstract;

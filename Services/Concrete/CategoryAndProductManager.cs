@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
 using AutoMapper;
 using Data.Concrete.EntityFramework.Context;
 using Entities.Concrete;
