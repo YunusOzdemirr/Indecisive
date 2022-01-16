@@ -8,6 +8,7 @@ namespace Services.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        //Extension Method
         public static IServiceCollection LoadMyServices(this IServiceCollection services)
         {
             services.AddDbContext<IndecisiveContext>();
@@ -17,6 +18,7 @@ namespace Services.Extensions
             services.AddScoped<IPremiumProductService, PremiumProductManager>();
             services.AddScoped<IRoleService, RoleManager>();
             services.AddScoped<ICategoryAndProductService, CategoryAndProductManager>();
+            services.AddScoped<ISubscribeService, SubscribeManager>();
             return services;
         }
     }

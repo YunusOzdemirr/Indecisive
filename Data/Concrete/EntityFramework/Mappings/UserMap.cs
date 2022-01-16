@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Concrete.EntityFramework.Mappings
 {
-    public class UserMap:IEntityTypeConfiguration<User>
+    public class UserMap : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
@@ -15,9 +15,11 @@ namespace Data.Concrete.EntityFramework.Mappings
             builder.Property(a => a.LastName).IsRequired();
             builder.Property(a => a.LastName).HasMaxLength(50);
             builder.Property(a => a.UserName).IsRequired();
+            builder.Property(a => a.UserName).HasMaxLength(20);
             builder.Property(a => a.Gender).IsRequired();
             builder.Property(a => a.Email).IsRequired();
             builder.Property(a => a.Email).HasMaxLength(100);
+            builder.HasOne<Subscribe>(a => a.Subscribe).WithMany(a => a.Users).HasForeignKey(a => a.SubscribeId);
             builder.ToTable("Users");
         }
     }

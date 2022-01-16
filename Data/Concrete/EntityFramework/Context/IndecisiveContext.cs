@@ -17,7 +17,7 @@ namespace Data.Concrete.EntityFramework.Context
         public DbSet<ProductPicture> ProductPictures { get; set; }
         public DbSet<UserPicture> UserPictures { get; set; }
         public DbSet<CompanyAndProduct> CompanyAndProducts { get; set; }
-
+        public DbSet<Subscribe> Subscribes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryAndProductMap());
@@ -37,6 +37,7 @@ namespace Data.Concrete.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new RoleMap());
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new UserPictureMap());
+            modelBuilder.ApplyConfiguration(new SubscribeMap());
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -123,7 +123,6 @@ namespace Services.Concrete
             await DbContext.SaveChangesAsync();
             return new Result(ResultStatus.Succes, true);
         }
-
         public async Task<IResult> UpdateAsync(CompanyUpdateDto companyUpdateDto)
         {
             var OldCompany = await DbContext.Companies.SingleOrDefaultAsync(a => a.Id == companyUpdateDto.Id);

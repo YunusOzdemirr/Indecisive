@@ -17,6 +17,8 @@ namespace Entities.Concrete
         public DateTime? LastLogin { get; set; }
         public bool IsEmailAddressVerified { get; set; }
         public bool IsAdmin { get; set; }
+        public int SubscribeId { get; set; }
+        public Subscribe Subscribe { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<UserPicture> Pictures { get; set; }
         public ICollection<UserAndProduct> FavProducts { get; set; }
