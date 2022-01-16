@@ -29,6 +29,10 @@ namespace Shared.Utilities.Results.Concrete
         {
             Data = data;
         }
+        public Result(string message)
+        {
+            Message = message;
+        }
 
         public ResultStatus ResultStatus { get; set; }
         public string Message { get; set; }

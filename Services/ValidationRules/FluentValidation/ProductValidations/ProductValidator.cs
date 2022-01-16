@@ -8,6 +8,7 @@ namespace Services.ValidationRules.FluentValidation.ProductValidations
     {
         public ProductValidator()
         {
+            RuleFor(a => a.Name).NotEmpty();
         }
 
     }
