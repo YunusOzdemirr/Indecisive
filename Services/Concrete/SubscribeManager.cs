@@ -28,6 +28,8 @@ namespace Services.Concrete
                 throw new ExistArgumentException(Messages.General.IsExistArgument("Abonelik"), new Error("Bu abonelik zaten mevcut", "UserId"));
 
             var subscribe = Mapper.Map<Subscribe>(subscribeAddDto);
+            subscribe.ExpireDate = DateTime.Now.AddDays(30);
+            subscribe.StartDate = DateTime.Now;
             await DbContext.Subscribes.AddAsync(subscribe);
             await DbContext.SaveChangesAsync();
 
